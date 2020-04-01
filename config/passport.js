@@ -2,14 +2,14 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 
 // Load Admin model
-const Admin = require("../model/Admin");
+const admin = require("../model/admin");
 
 module.exports = function (passport) {
     passport.use(
         new LocalStrategy
         ({usernameField: "employeeId"}, (employeeId, password, done) => {
             //Match admin
-            Admin.findOne({
+            admin.findOne({
                 employeeId: employeeId
             }).then(admin => {
                 if (!admin) { 
@@ -39,7 +39,7 @@ module.exports = function (passport) {
     });
 
     passport.deserializeUser((id, done) => {
-        Admin.findById(id, (err, admin) => {
+        admin.findById(id, (err, admin) => {
             done(err, admin);
         });
     });

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const AdminSchema = new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
 
     employeeId: {
         type: String,
@@ -17,6 +17,6 @@ const AdminSchema = new mongoose.Schema({
     }
 });
 
-const Admin = mongoose.model("Admin", AdminSchema);
+const admin = mongoose.model("admin", adminSchema);
 
-module.exports = Admin;
+module.exports = admin;

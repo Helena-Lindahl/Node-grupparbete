@@ -10,7 +10,7 @@ const {
 } = require("../config/auth");
 
 // Admin model 
-const Admin = require("../model/Admin");
+const admin = require("../model/admin");
 const {
     forwardAuthenticated
 } = require('../config/auth');
@@ -75,7 +75,7 @@ router.post("/registeradmin", (req, res) => {
         });
     } else {
         // Validation passed
-        Admin.findOne({
+        admin.findOne({
             employeeId: employeeId
         })
             .then(admin => {
@@ -91,20 +91,20 @@ router.post("/registeradmin", (req, res) => {
                         password2
                     });
                 } else {
-                    const newAdmin = new Admin({
+                    const newadmin = new admin({
                         employeeId: employeeId,
                         password: password,
 
                     });
                     // Hash password
                     bcrypt.genSalt(10, (err, salt) => {
-                        bcrypt.hash(newAdmin.password, salt, (err, hash) => {
+                        bcrypt.hash(newadmin.password, salt, (err, hash) => {
                             if (err) throw err;
 
                             //Set password to hashed
-                            newAdmin.password = hash;
+                            newadmin.password = hash;
                             // Save admin in mongoDB
-                            newAdmin.save()
+                            newadmin.save()
                                 .then(admin => {
                                     req.flash(
                                         "success_msg",
